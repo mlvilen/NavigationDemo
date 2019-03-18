@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/home_dest">
+    <fragment
+        android:id="@+id/home_dest"
+        android:name="com.fairtiq.navigationdemo.home.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/home_fragment">
+
+        <action
+            android:id="@+id/next_action"
+            app:destination="@+id/nav_gallery"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+                android:id="@+id/slide_action"
+                app:destination="@+id/nav_slideshow">
+        </action>
+
+    </fragment>
+
+
+    <activity
+            android:id="@+id/settings_dest"
+            android:name="com.fairtiq.navigationdemo.settings.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            tools:layout="@layout/activity_settings" />
+
+    <fragment
+            android:id="@+id/nav_gallery"
+            android:name="com.fairtiq.navigationdemo.dest.GalleryFragment"
+            tools:layout="@layout/gallery_fragment">
+
+        <argument
+                android:name="user"
+                app:argType="com.fairtiq.navigationdemo.User"
+                android:defaultValue="@null"
+                app:nullable="true"/>
+
+        <action
+                android:id="@+id/next_action"
+                app:destination="@+id/nav_slideshow">
+        </action>
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/nav_slideshow"
+            android:name="com.fairtiq.navigationdemo.dest.SlideShowFragment"
+            tools:layout="@layout/slide_show_fragment">
+
+        <argument
+                android:name="flowStepNumber"
+                app:argType="integer"
+                android:defaultValue="2"/>
+
+        <action
+                android:id="@+id/next_action"
+                app:popUpTo="@id/home_dest">
+        </action>
+    </fragment>
+
+    <fragment
+            android:id="@+id/deeplink_dest"
+            android:name="com.fairtiq.navigationdemo.dest.DeepLinkFragment"
+            android:label="@string/deeplink"
+            tools:layout="@layout/deeplink_fragment">
+
+        <argument
+                android:name="myarg"
+                android:defaultValue="Android!"/>
+
+        <deepLink app:uri="www.fairtiq.com/navigation/demo/{myarg}" />
+        <!--Run for test
+        adb shell am start -a android.intent.action.VIEW -d "http://www.fairtiq.com/navigation/demo/url_arguments"-->
+
+    </fragment>
+    
+</navigation>
